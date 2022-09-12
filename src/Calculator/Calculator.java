@@ -13,11 +13,12 @@ import java.util.Scanner;
 public class Calculator {
     public static void main(String[] args) {
         try{
-            if (args.length > 3) {
-                System.err.println("Parse Index out of bounce!");
+            if (args.length > 0 && args.length < 3 || args.length > 3) {
+                System.err.println("Error: Arguments is incomplete or Parse Index is out" +
+                        " of bounce!");
                 System.exit(-1);
             }
-            if (args.length > 0) {
+            if (args.length == 3) {
                 nonInteractiveMode(args);
             } else {
                 interactiveMode();
