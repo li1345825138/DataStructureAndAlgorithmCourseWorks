@@ -40,7 +40,7 @@ public class Calculator {
      */
     static void nonInteractiveMode(String[] args) throws ArithmeticException,
             IllegalArgumentException, ArrayIndexOutOfBoundsException {
-        double result = 0;
+        double result;
 
         try {
             double num1 = Double.parseDouble(args[0]);
@@ -68,7 +68,7 @@ public class Calculator {
     static void interactiveMode() {
         try (
                 // Auto close input resource
-                Scanner input = new Scanner(System.in);
+                Scanner input = new Scanner(System.in)
                 ) {
             char operator;
             while (true) {
@@ -109,7 +109,7 @@ public class Calculator {
      */
     static double getResult(char operator, double num1, double num2) throws ArithmeticException,
             IllegalArgumentException {
-        double result = 0;
+        double result;
         switch (operator) {
             case '+':
                 result = num1 + num2;
@@ -167,6 +167,7 @@ public class Calculator {
             } catch (InputMismatchException e) {
                 // if input number is not number, such like english letters
                 System.out.println("Error: Invalid Value. Operands must be numbers.");
+                input.nextLine(); // clear input cache
                 continue;
             }
             break;
@@ -190,6 +191,7 @@ public class Calculator {
             } catch (InputMismatchException e) {
                 // if input number is not number, such like english letters
                 System.out.println("Error: Invalid Value. Operands must be numbers.");
+                input.nextLine(); // clear input cache
                 continue;
             }
             break;
