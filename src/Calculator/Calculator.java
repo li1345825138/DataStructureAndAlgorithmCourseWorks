@@ -26,7 +26,7 @@ public class Calculator {
             System.err.println("Index out of Bounce! if you use '^' as operator, please write " +
                     "as '^^' if you on CMD");
         } catch (Exception e) {
-            System.err.println(e.getMessage());
+            System.err.println(e.getMessage()); // any other unknown exception
         }
     }
 
@@ -66,35 +66,30 @@ public class Calculator {
      * indicate the program's output and bold font indicates users' input.
      */
     static void interactiveMode() {
-        try (
-                // Auto close input resource
-                Scanner input = new Scanner(System.in)
-                ) {
-            char operator;
-            while (true) {
-                System.out.print("Operation? ");
-                operator = input.next().charAt(0);
-                if (operator != '+' && operator != '-' && operator != '*' && operator != '/'
-                        && operator != '^' && operator != '%') {
-                    System.out.println("Error: Wrong operation! Valid operations are " +
-                            "+, -, *, /, ^ and %. Please try again.");
-                    continue;
-                }
-                break;
+        Scanner input = new Scanner(System.in);
+        char operator;
+        while (true) {
+            System.out.print("Operation? ");
+            operator = input.next().charAt(0);
+            input.nextLine(); // clear input cache
+            if (operator != '+' && operator != '-' && operator != '*' && operator != '/'
+                    && operator != '^' && operator != '%') {
+                System.out.println("Error: Wrong operation! Valid operations are " +
+                        "+, -, *, /, ^ and %. Please try again.");
+                continue;
             }
-            double[] numbers = getValidateInputValue(input, operator);
-            double result = getResult(operator, numbers[0], numbers[1]);
-
-            // if both numbers is whole number
-            if (numbers[0] % 1 == 0 && numbers[1] % 1 == 0) {
-                System.out.printf("%.0f\n", result);
-            } else {
-                System.out.printf("%.1f\n", result);
-            }
-        } catch (Exception e) {
-            // any unknow exception
-            e.printStackTrace();
+            break;
         }
+        double[] numbers = getValidateInputValue(input, operator);
+        double result = getResult(operator, numbers[0], numbers[1]);
+
+        // if both numbers is whole number
+        if (numbers[0] % 1 == 0 && numbers[1] % 1 == 0) {
+            System.out.printf("%.0f\n", result);
+        } else {
+            System.out.printf("%.1f\n", result);
+        }
+        input.close(); // close scanner input resource
     }
 
     /**
