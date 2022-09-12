@@ -46,6 +46,18 @@ public class Calculator {
             double num1 = Double.parseDouble(args[0]);
             double num2 = Double.parseDouble(args[2]);
             char operator = args[1].charAt(0);
+
+            // if operator is divide, check divisor number
+            if (operator == '/' && num2 == 0f) {
+                throw new ArithmeticException("Error: Invalid value for the second operand." +
+                        " Divisor cannot be zero.");
+            }
+
+            // if operator is modulu, check if number is whole number
+            if (operator == '%' && num1 % 1 != 0 || num2 % 1 != 0) {
+                throw new IllegalArgumentException("Error: Wrong value! Operands of" +
+                        " modulu operations must be integer. Please try again.");
+            }
             result = getResult(operator, num1, num2);
             if (num1 % 1 == 0 && num2 % 1 == 0) { // if both numbers is whole number
                 System.out.printf("%.0f\n", result);
@@ -116,20 +128,12 @@ public class Calculator {
                 result = num1 * num2;
                 break;
             case '/':
-                if (num2 == 0f) {
-                    throw new ArithmeticException("Error: Invalid value for the second operand." +
-                            " Divisor cannot be zero.");
-                }
                 result = num1 / num2;
                 break;
             case '^':
                 result = Math.pow(num1, num2);
                 break;
             case '%':
-                if (num1 % 1 != 0 || num2 % 1 != 0) { // if is not whole number
-                    throw new IllegalArgumentException("Error: Wrong value! Operands of" +
-                            "modulu operations must be integer. Please try again.");
-                }
                 result = num1 % num2;
                 break;
             default:
