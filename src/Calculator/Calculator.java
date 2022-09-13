@@ -56,7 +56,7 @@ public class Calculator {
             }
 
             // if operator is modulu, check if number is whole number
-            if (operator == '%' && num1 % 1 != 0 || num2 % 1 != 0) {
+            if (operator == '%' && num1 % 1 != 0 || operator == '%' && num2 % 1 != 0) {
                 throw new IllegalArgumentException("Error: Wrong value! Operands of" +
                         " modulu operations must be integer. Please try again.");
             }
