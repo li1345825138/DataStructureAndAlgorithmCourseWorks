@@ -14,7 +14,8 @@ public class Calculator {
     public static void main(String[] args) {
         try{
             if (args.length > 0 && args.length < 3 || args.length > 3) {
-                // if the argument equation is incomplete such like '2 * ' or just '2' in arguments
+                // if the argument equation is incomplete such like '2 * ' or just '2'
+                // or user enter '^' as operator in arguments
                 System.err.println("Error: Arguments is incomplete or Parse Index is out" +
                         " of bounce!");
                 System.err.println("PS: if you use '^' as operator, please" +
