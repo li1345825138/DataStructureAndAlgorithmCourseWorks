@@ -17,6 +17,8 @@ public class Calculator {
                 // if the argument equation is incomplete such like '2 * ' or just '2' in arguments
                 System.err.println("Error: Arguments is incomplete or Parse Index is out" +
                         " of bounce!");
+                System.err.println("PS: if you use '^' as operator, please" +
+                        " write as '^^' if you on CMD");
                 System.exit(-1);
             }
             if (args.length == 3) {
@@ -24,9 +26,6 @@ public class Calculator {
             } else {
                 interactiveMode();
             }
-        }catch (ArrayIndexOutOfBoundsException e) {
-            System.err.println("Index out of Bounce! if you use '^' as operator, please write " +
-                    "as '^^' if you on CMD");
         } catch (Exception e) {
             System.err.println(e.getMessage()); // any other unknown exception
         }
