@@ -5,36 +5,30 @@ import java.util.Scanner;
 
 /**
  * You will be writing a program that implements a simple calculator that is capable of a few
- * simple arithmetic operations Your program can run in two different modes: 1) Non-interactive
- * and 2) interactive.
+ * simple arithmetic operations Your program can run in two different modes:
+ * 1) Non-interactive
+ * 2) interactive.
  * @author Lengqiang Lin
  * @date 09/12/2022
  */
 public class Calculator {
     public static void main(String[] args) {
         try{
-            if (args.length > 0 && args.length < 3 || args.length > 3) {
-                // if the argument equation is incomplete such like '2 * ' or just '2'
-                // or user enter '^' as operator in arguments
-                System.err.println("Error: Arguments is incomplete or Parse Index is out" +
-                        " of bounce!");
-                System.err.println("PS: if you use '^' as operator, please" +
-                        " write as '^^' if you on CMD");
-                System.exit(-1);
-            }
+            // A correct non-interactive equation should have 3 arguments
             if (args.length == 3) {
                 nonInteractiveMode(args);
             } else {
+                // if arguments length is smaller than 3 or larger than 3
+                // which mean is illegal input run in interactive mode
                 interactiveMode();
             }
         } catch (Exception e) {
-            System.err.println(e.getMessage()); // any other unknown exception
+            System.err.println(e.getMessage()); // any unknown exception
         }
     }
 
     /**
-     * You will be writing a program that implements a simple calculator that is capable of a
-     * few simple arithmetic operations, as described below.
+     * Calculator run in non-interactive mode
      * @param args command line input arguments
      * @throws ArithmeticException throw exception if divide number is zero
      * @throws IllegalArgumentException throw exception if arguments is not legal
@@ -43,11 +37,10 @@ public class Calculator {
     static void nonInteractiveMode(String[] args) throws ArithmeticException,
             IllegalArgumentException, ArrayIndexOutOfBoundsException {
         double result;
-
         try {
+            char operator = getValidateOperator(args[1]);
             double num1 = Double.parseDouble(args[0]);
             double num2 = Double.parseDouble(args[2]);
-            char operator = args[1].charAt(0);
 
             // if operator is divide, check divisor number
             if (operator == '/' && num2 == 0f) {
@@ -67,7 +60,7 @@ public class Calculator {
                 System.out.printf("%.1f\n", result);
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new ArrayIndexOutOfBoundsException();
+            throw new ArrayIndexOutOfBoundsException("Error: Args index is out of bounce!");
         } catch (NumberFormatException e) {
             throw new NumberFormatException("Error: Invalid Value. Operands must be numbers.");
         }
@@ -76,25 +69,24 @@ public class Calculator {
     /**
      * In interactive mode, your program runs without any command line arguments and then asks
      * the users to enter the operation he/she wants to perform and the first operand and the
-     * second operand in order. The followings are some exampes. Note that the regular font
-     * indicate the program's output and bold font indicates users' input.
+     * second operand in order.
      */
     static void interactiveMode() {
         Scanner input = new Scanner(System.in);
         char operator;
         while (true) {
             System.out.print("Operation? ");
-            operator = input.next().charAt(0);
-            input.nextLine(); // clear input cache
-            if (operator != '+' && operator != '-' && operator != '*' && operator != '/'
-                    && operator != '^' && operator != '%') {
-                System.out.println("Error: Wrong operation! Valid operations are " +
-                        "+, -, *, /, ^ and %. Please try again.");
+            try {
+                operator = getValidateOperator(input.nextLine());
+            } catch (IllegalArgumentException e) {
+                System.err.println(e.getMessage());
                 continue;
             }
             break;
         }
         double[] numbers = getValidateInputValue(input, operator);
+        input.close(); // close scanner input resource
+
         double result = getResult(operator, numbers[0], numbers[1]);
 
         // if both numbers is whole number
@@ -103,7 +95,30 @@ public class Calculator {
         } else {
             System.out.printf("%.1f\n", result);
         }
-        input.close(); // close scanner input resource
+    }
+
+    /**
+     * Get Valid operator as char from received string operator
+     * @param operator String operator
+     * @return Valid calculate operator
+     */
+    static char getValidateOperator(String operator) {
+        char validOperator;
+        if (operator.equals("x")) {
+            validOperator = '*';
+        } else if (operator.equals("xx")) {
+            validOperator = '^';
+        } else {
+            validOperator = operator.charAt(0);
+        }
+
+        // check is valid operator
+        if (validOperator == '+' || validOperator == '-' || validOperator == '*'
+                || validOperator == '/' || validOperator == '^' || validOperator == '%') {
+            return validOperator;
+        }
+        throw new IllegalArgumentException("Error: Wrong operation! Valid operations" +
+                "are +, -, *(x), /, ^(xx) and %. Please try again.");
     }
 
     /**
@@ -112,13 +127,12 @@ public class Calculator {
      * @param num1  first number recieved
      * @param num2  second number received
      * @return  result of calculation
-     * @throws ArithmeticException throw exception if divide by zero
      * @throws IllegalArgumentException throw exception if illegal number argument(like mod float
      * number or invalid operator)
      */
-    static double getResult(char operator, double num1, double num2) throws ArithmeticException,
-            IllegalArgumentException {
-        double result;
+    static double getResult(char operator, double num1, double num2)
+            throws IllegalArgumentException {
+        double result = 0.0;
         switch (operator) {
             case '+':
                 result = num1 + num2;
@@ -137,10 +151,6 @@ public class Calculator {
                 break;
             case '%':
                 result = num1 % num2;
-                break;
-            default:
-                throw new IllegalArgumentException("Error: Wrong operation! Valid operations" +
-                        "are +, -, *, /, ^ and %. Please try again.");
         }
         return result;
     }
