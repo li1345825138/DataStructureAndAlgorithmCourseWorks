@@ -1,6 +1,7 @@
 package PrimeFinder;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * takes two whole numbers on the command line that are greater than 0 and smaller
@@ -20,7 +21,7 @@ public class PrimeFinder {
             checkArguments(beg, end);
 
             // get all prime number array list from method
-            ArrayList<Integer> primeNums = findAllPrime(beg, end);
+            List<Integer> primeNums = findAllPrime(beg, end);
 
             // print out result
             System.out.println(primeNums);
@@ -50,7 +51,7 @@ public class PrimeFinder {
     static void checkArguments(int num1, int num2) throws IllegalArgumentException {
         if (num2 < num1) {
             throw new IllegalArgumentException("Error: max must be greater than or equal to min!");
-        } else if (num1 <= 0 || num2 <= 0 || num1 >= 1000001 || num2 >= 1000001) {
+        } else if (num1 <= 0 || num1 >= 1000001 || num2 >= 1000001) {
             throw new IllegalArgumentException("Error: min must be between 0 and 1,000,000.");
         }
     }
