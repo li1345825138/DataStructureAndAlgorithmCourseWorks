@@ -48,8 +48,8 @@ public class GreatCircle {
     static double calculateGreateCircle(double x1, double y1, double x2, double y2) {
         // convert to radian value before calculation
         x1 = Math.toRadians(x1);
-        x2 = Math.toRadians(x2);
         y1 = Math.toRadians(y1);
+        x2 = Math.toRadians(x2);
         y2 = Math.toRadians(y2);
 
         // return result by using formula
