@@ -2,12 +2,10 @@ package project1;
 
 /**
  * Exercise 1. (Great Circle Distance) Write a program called GreatCircle.java that
- * accepts x1 (double), y1 (double), x2 (double),
- * and y2 (double) as command-line arguments representing the latitude and longitude
- * (in degrees) of two points on earth, and
+ * accepts x1 (double), y1 (double), x2 (double),and y2 (double) as command-line
+ * arguments representing the latitude and longitude (in degrees) of two points on earth, and
  * writes to standard output the great-circle distance (in km) between the two points,
- * given by the formula:
- * d = 6359.83 arccos(sin(x1) sin(x2) + cos(x1) cos(x2) cos(y1 − y2)).
+ * given by the formula: d = 6359.83 arccos(sin(x1) sin(x2) + cos(x1) cos(x2) cos(y1 − y2)).
  *
  * @author Lengqiang Lin
  * @date 09/27/2022
@@ -15,15 +13,24 @@ package project1;
 public class GreatCircle {
     public static void main(String[] args) {
         try {
+            // parse string number arguments into double numbers
             double x1 = Double.parseDouble(args[0]);
             double y1 = Double.parseDouble(args[1]);
             double x2 = Double.parseDouble(args[2]);
             double y2 = Double.parseDouble(args[3]);
+
+            // calculate and get result
             double result = calculateGreateCircle(x1, y1, x2, y2);
+
+            // print out result
             System.out.println(result);
         } catch (NumberFormatException e) {
+
+            // if the arguments is not numbers exception
             System.err.println("Error: The arguments should be numbers!");
         } catch (Exception e) {
+
+            // any other exceptions
             System.err.println(e.getMessage());
         }
     }
@@ -31,6 +38,7 @@ public class GreatCircle {
     /**
      * Calculate Greate Circle distance
      * d = 6359.83 arccos(sin(x1) sin(x2) + cos(x1) cos(x2) cos(y1 − y2)).
+     *
      * @param x1 argument for x1
      * @param y1 argument for y1
      * @param x2 argument for x2
