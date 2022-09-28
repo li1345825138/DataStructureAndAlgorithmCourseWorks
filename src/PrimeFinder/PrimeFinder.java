@@ -8,14 +8,15 @@ import java.util.List;
  * than 1000001 and finds all prime numbers between the two numbers and then prints them
  * on the screen once all those numbers have been found. Note that you should not print the primes
  * as you find them. First, find all of them and then print them out.
+ *
  * @author Lengqiang Lin
- * @date 09/20/2022
+ * @date 09/24/2022
  */
 public class PrimeFinder {
     public static void main(String[] args) {
-        try{
-            int beg = (int)Math.ceil(Double.parseDouble(args[0]));
-            int end = (int)Math.floor(Double.parseDouble(args[1]));
+        try {
+            int beg = (int) Math.ceil(Double.parseDouble(args[0]));
+            int end = (int) Math.floor(Double.parseDouble(args[1]));
 
             // check arguments to see if it valid
             checkArguments(beg, end);
@@ -25,12 +26,12 @@ public class PrimeFinder {
 
             // print out result
             System.out.println(primeNums);
-        } catch (ArrayIndexOutOfBoundsException e){
+        } catch (ArrayIndexOutOfBoundsException e) {
             // if user didn't finish input, such as arguments is less than 2 or no arguments
             System.err.println("Error: Wrong number of arguments\n" +
                     "Usage: PrimeFinder <min> <max>");
         } catch (NumberFormatException e) {
-            // if user input arguments is other than whole number
+            // if user input arguments is other than numbers
             System.err.println("Error: min and max must be a number");
         } catch (IllegalArgumentException e) {
             // some illegal arguments that throw by checkValidArguments method
@@ -44,6 +45,7 @@ public class PrimeFinder {
     /**
      * Check input arguments
      * Throw Exception if there has Illegal argument
+     *
      * @param num1 first number to check
      * @param num2 second number to check
      * @throws IllegalArgumentException throw exception if cause by method
@@ -58,6 +60,7 @@ public class PrimeFinder {
 
     /**
      * Find all numbers from [beg, end]
+     *
      * @param beg number to begin with
      * @param end number to end with
      * @return all the numbers in array that are prime between [beg, end]
@@ -76,7 +79,8 @@ public class PrimeFinder {
 
     /**
      * Check if num is a prime number
-     * @param num the number that will be check
+     *
+     * @param num the number that will be Check
      * @return true if is prime, false is not
      */
     static boolean isPrime(int num) {
@@ -84,10 +88,8 @@ public class PrimeFinder {
             return false;
         } else if (num == 2) {
             return true;
-        } else if (num % 2 == 0) {
-            return false;
         }
-        for (int i = 3;i < num; i++) {
+        for (int i = 2; i < num; i++) {
             if (num % i == 0) {
                 return false;
             }
