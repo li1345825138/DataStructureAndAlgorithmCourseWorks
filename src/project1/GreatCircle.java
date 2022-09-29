@@ -46,13 +46,13 @@ public class GreatCircle {
      * @return result of greate circle distance
      */
     static double calculateGreateCircle(double x1, double y1, double x2, double y2) {
-        // convert to radian value before calculation
+        // Convert the angles to radians
         x1 = Math.toRadians(x1);
         y1 = Math.toRadians(y1);
         x2 = Math.toRadians(x2);
         y2 = Math.toRadians(y2);
 
-        // return result by using formula
+        // return great-circle distance d.
         return 6359.83 * Math.acos(Math.sin(x1) * Math.sin(x2) +
                 Math.cos(x1) * Math.cos(x2) * Math.cos(y1 - y2));
     }

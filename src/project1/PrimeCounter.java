@@ -35,7 +35,7 @@ public class PrimeCounter {
     }
 
     /**
-     * Count how many prime in range of [0, n]
+     * Count how many prime in range of [2, n]
      * @param n The max range
      * @return how many prime number are in that range
      * @throws IllegalArgumentException if n is less than 0
@@ -46,6 +46,8 @@ public class PrimeCounter {
         }
         int count = 0;
         for (int i = 2; i <= n; i++) {
+
+            // if current i is prime, increment a count
             if (isPrime(i)) {
                 count++;
             }
@@ -56,7 +58,7 @@ public class PrimeCounter {
     /**
      * Check current number is prime or not
      * @param x number to check
-     * @return true if is prime, false otherwise
+     * @return true if x is prime and false otherwise.
      */
     static boolean isPrime(int x) {
         if (x <= 1) {
