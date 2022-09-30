@@ -1,24 +1,23 @@
-package project1;
+package percolation;
+
+import stdlib.StdArrayIO;
 
 /**
  * Implement the static method tranpose() in Transpose.java that accepts a matrix x — represented
  * as a 2D array of doubles — and returns a new matrix that is the transpose of x.
  *
  * @author Lengqiang Lin
- * @date
+ * @date 09/28/2022
  */
 public class Transpose {
+    // Entry point. [DO NOT EDIT]
     public static void main(String[] args) {
-
+        double[][] x = StdArrayIO.readDouble2D();
+        StdArrayIO.print(transpose(x));
     }
 
-    /**
-     * Create new transpose of x
-     * @param x original transpose
-     * @return new transpose
-     */
-    static double[][] transpose(double[][] x) {
-
+    // Returns a new matrix that is the transpose of x.
+    private static double[][] transpose(double[][] x) {
         // Create a new 2D matrix t (for transpose) with dimensions n x m, where m x n are the
         // dimensions of x.
         int n = x.length;
@@ -31,6 +30,8 @@ public class Transpose {
                 t[j][i] = x[i][j];
             }
         }
+
+        // Return t.
         return t;
     }
 }

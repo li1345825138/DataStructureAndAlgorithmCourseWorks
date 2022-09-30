@@ -1,4 +1,7 @@
-package project1;
+package percolation;
+
+import stdlib.StdArrayIO;
+import stdlib.StdOut;
 
 /**
  * Implement the static method distance() in Distance.java that accepts position vectors x and y
@@ -7,20 +10,20 @@ package project1;
  * the corresponding entries.
  *
  * @author Lengqiang Lin
- * @date
+ * @date 09/28/2022
  */
 public class Distance {
+    // Entry point. [DO NOT EDIT]
     public static void main(String[] args) {
-
+        double[] x = StdArrayIO.readDouble1D();
+        double[] y = StdArrayIO.readDouble1D();
+        StdOut.println(distance(x, y));
     }
 
-    /**
-     * Accept vector x and y on 1D Array and calculate Euclidean distance
-     * @param x x vector array
-     * @param y y vectpr array
-     * @return Euclidean distance
-     */
-    static double distance(double[] x, double[] y) {
+    // Returns the Euclidean distance between the position vectors x and y.
+    private static double distance(double[] x, double[] y) {
+        // Sum up the squares of (x[i] - y[i]), where 0 <= i < x.length, and return the square
+        // root of the sum.
         double sum = 0.0;
 
         // Sum up the squares of (x[i] - y[i]), where 0 <= i < x.length
