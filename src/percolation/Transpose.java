@@ -12,8 +12,7 @@ import stdlib.StdArrayIO;
 public class Transpose {
     // Entry point. [DO NOT EDIT]
     public static void main(String[] args) {
-        // double[][] x = StdArrayIO.readDouble2D();
-        double[][] x = {{1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0}};
+        double[][] x = StdArrayIO.readDouble2D();
         StdArrayIO.print(transpose(x));
     }
 
