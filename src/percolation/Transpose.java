@@ -12,7 +12,8 @@ import stdlib.StdArrayIO;
 public class Transpose {
     // Entry point. [DO NOT EDIT]
     public static void main(String[] args) {
-        double[][] x = StdArrayIO.readDouble2D();
+        // double[][] x = StdArrayIO.readDouble2D();
+        double[][] x = {{1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0}};
         StdArrayIO.print(transpose(x));
     }
 
@@ -20,13 +21,13 @@ public class Transpose {
     private static double[][] transpose(double[][] x) {
         // Create a new 2D matrix t (for transpose) with dimensions n x m, where m x n are the
         // dimensions of x.
-        int n = x.length;
-        int m = x[0].length;
+        int m = x.length;
+        int n = x[0].length;
         double[][] t = new double[n][m];
 
         // For each 0 <= i < m and 0 <= j < n, set t[j][i] to x[i][j].
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
                 t[j][i] = x[i][j];
             }
         }

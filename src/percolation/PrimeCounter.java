@@ -27,7 +27,7 @@ public class PrimeCounter {
         } else if (x == 2) {
             return true;
         }
-        for (int i = 2; i < x; i++) {
+        for (int i = 2; i <= x / i; i++) {
             if (x % i == 0) {
                 return false;
             }
@@ -39,9 +39,6 @@ public class PrimeCounter {
     private static int primes(int n) {
         // For each 2 <= i <= n, use isPrime() to test if i is prime, and if so increment a count.
         // At the end return the count.
-        if (n < 0) {
-            throw new IllegalArgumentException("Error: number couldn't less than 0!");
-        }
         int count = 0;
         for (int i = 2; i <= n; i++) {
 
