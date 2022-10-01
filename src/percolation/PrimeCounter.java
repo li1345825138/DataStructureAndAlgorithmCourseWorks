@@ -8,7 +8,6 @@ import stdlib.StdOut;
  * an integer n and returns the number of primes less than or equal to n — a number x is prime if
  * it is not divisible by any number i ∈ [2, √x.
  *
- * @author Lengqiang Lin
  * @date 09/27/2022
  */
 public class PrimeCounter {

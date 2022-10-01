@@ -7,7 +7,6 @@ import stdlib.StdOut;
  * computes the nth harmonic number Hn as a rational number, and writes the value to standard
  * output.
  *
- * @author Lengqiang Lin
  * @date 09/29/2022
  */
 

@@ -6,7 +6,6 @@ import stdlib.StdArrayIO;
  * Implement the static method tranpose() in Transpose.java that accepts a matrix x — represented
  * as a 2D array of doubles — and returns a new matrix that is the transpose of x.
  *
- * @author Lengqiang Lin
  * @date 09/28/2022
  */
 public class Transpose {

@@ -7,7 +7,6 @@ import stdlib.StdOut;
  * number of the form a/b where a and b 6= 0 are integers. The data type must support the following
  * API.
  *
- * @author Lengqiang Lin
  * @date 09/29/2022
  */
 public class Rational {

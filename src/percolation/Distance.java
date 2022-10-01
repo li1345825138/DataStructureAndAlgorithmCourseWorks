@@ -9,7 +9,6 @@ import stdlib.StdOut;
  * vectors, calculated as the square root of the sums of the squares of the differences between
  * the corresponding entries.
  *
- * @author Lengqiang Lin
  * @date 09/28/2022
  */
 public class Distance {

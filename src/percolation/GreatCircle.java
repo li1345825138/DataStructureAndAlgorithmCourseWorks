@@ -9,7 +9,6 @@ import stdlib.StdOut;
  * writes to standard output the great-circle distance (in km) between the two points,
  * given by the formula: d = 6359.83 arccos(sin(x1) sin(x2) + cos(x1) cos(x2) cos(y1 − y2)).
  *
- * @author Lengqiang Lin
  * @date 09/27/2022
  */
 public class GreatCircle {

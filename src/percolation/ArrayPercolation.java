@@ -6,7 +6,6 @@ import stdlib.StdOut;
 /**
  * An implementation of the Percolation API using a 2D array.
  *
- * @author Lengqiang Lin
  * @date 09/30/2022
  */
 public class ArrayPercolation implements Percolation {
@@ -20,13 +19,13 @@ public class ArrayPercolation implements Percolation {
             throw new IllegalArgumentException("Illegal n");
         }
         this.n = n;
-        this.open = new boolean[n][n];
+        this.open = new boolean[this.n][this.n];
         this.openSite = 0;
     }
 
     // Opens site (i, j) if it is not already open.
     public void open(int i, int j) {
-        if (i < 0 || i > n - 1 || j < 0 || j > n - 1) {
+        if (i < 0 || i > this.n - 1 || j < 0 || j > this.n - 1) {
             throw new IndexOutOfBoundsException("Illegal i or j");
         }
         if (!this.open[i][j]) {
@@ -37,7 +36,7 @@ public class ArrayPercolation implements Percolation {
 
     // Returns true if site (i, j) is open, and false otherwise.
     public boolean isOpen(int i, int j) {
-        if (i < 0 || i > n - 1 || j < 0 || j > n - 1) {
+        if (i < 0 || i > this.n - 1 || j < 0 || j > this.n - 1) {
             throw new IndexOutOfBoundsException("Illegal i or j");
         }
         return this.open[i][j];
@@ -45,7 +44,7 @@ public class ArrayPercolation implements Percolation {
 
     // Returns true if site (i, j) is full, and false otherwise.
     public boolean isFull(int i, int j) {
-        if (i < 0 || i > n - 1 || j < 0 || j > n - 1) {
+        if (i < 0 || i > this.n - 1 || j < 0 || j > this.n - 1) {
             throw new IndexOutOfBoundsException("Illegal i or j");
         }
         boolean[][] full = new boolean[n][n];
@@ -65,8 +64,8 @@ public class ArrayPercolation implements Percolation {
     // Returns true if this system percolates, and false otherwise.
     public boolean percolates() {
         // a system percolates if the last row contains at least one full site
-        for (int i = 0; i < n; i++) {
-            if (isFull(n - 1, i)) {
+        for (int i = 0; i < this.n; i++) {
+            if (isFull(this.n - 1, i)) {
                 return true;
             }
         }
@@ -75,7 +74,7 @@ public class ArrayPercolation implements Percolation {
 
     // Recursively flood fills full[][] using depth-first exploration, starting at (i, j).
     private void floodFill(boolean[][] full, int i, int j) {
-        if (i < 0 || i > n - 1 || j < 0 || j > n - 1) {
+        if (i < 0 || i > this.n - 1 || j < 0 || j > this.n - 1) {
             return;
         } else if (!this.open[i][j] || full[i][j]) {
             return;
