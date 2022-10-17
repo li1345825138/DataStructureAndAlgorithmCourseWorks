@@ -26,7 +26,7 @@ public class Buffer {
 
     // Moves the cursor k positions to the left.
     public void left(int k) {
-        for (int i = k; !this.left.isEmpty() && i > 0; i--) {
+        for (int i = k; this.left.isEmpty() && i > 0; i--) {
             this.right.push(this.left.pop());
         }
     }
@@ -45,6 +45,7 @@ public class Buffer {
 
     // Returns a string representation of the buffer with the "|" character (not part of the buffer)
     // at the cursor position.
+    @Override
     public String toString() {
         // A buffer to store the string representation.
         StringBuilder sb = new StringBuilder();
