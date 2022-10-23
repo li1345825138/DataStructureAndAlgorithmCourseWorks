@@ -1,34 +1,52 @@
 package DequesAndRandomizedQueues;
 
-import java.util.Iterator;
-import java.util.NoSuchElementException;
-
 import stdlib.StdOut;
 import stdlib.StdRandom;
 
-// A data type to represent a random queue, implemented using a resizing array as the underlying
-// data structure.
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
+/**
+ * A random queue is similar to a stack or queue, except that the item removed is chosen
+ * uniformly at random from items in the data structure.
+ * A data type to represent a random queue, implemented using a resizing array as the underlying
+ * data structure.
+ *
+ * @author Lengqiang Lin
+ * @date 10/20/2022
+ */
 public class ResizingArrayRandomQueue<Item> implements Iterable<Item> {
     private Item[] q;       // item to store on this queue
     private int n;          // number of element store on this queue
 
-    // Constructs an empty random queue.
+    /**
+     * Constructs an empty random queue.
+     */
     public ResizingArrayRandomQueue() {
         this.q = (Item[]) new Object[2];
         this.n = 0;
     }
 
-    // Returns true if this queue is empty, and false otherwise.
+    /**
+     * Returns true if this queue is empty, and false otherwise.
+     * @return true if this queue is empty, and false otherwise
+     */
     public boolean isEmpty() {
         return this.n == 0;
     }
 
-    // Returns the number of items in this queue.
+    /**
+     * Returns the number of items in this queue.
+     * @return the number of items in this queue
+     */
     public int size() {
         return this.n;
     }
 
-    // Adds item to the end of this queue.
+    /**
+     * Adds the item to this queue.
+     * @param item the item to add
+     */
     public void enqueue(Item item) {
         if (item == null) {
             throw new NullPointerException("item is null");
@@ -41,7 +59,10 @@ public class ResizingArrayRandomQueue<Item> implements Iterable<Item> {
         this.q[this.n++] = item;
     }
 
-    // Returns a random item from this queue.
+    /**
+     * Removes and returns a random item from this queue.
+     * @return a random item from this queue
+     */
     public Item sample() {
         if (isEmpty()) {
             throw new NoSuchElementException("Random queue is empty");
@@ -50,7 +71,10 @@ public class ResizingArrayRandomQueue<Item> implements Iterable<Item> {
         return this.q[r];
     }
 
-    // Removes and returns a random item from this queue.
+    /**
+     * Removes and returns a random item from this queue.
+     * @return a random item from this queue
+     */
     public Item dequeue() {
         if (isEmpty()) {
             throw new NoSuchElementException("Random queue is empty");
@@ -68,7 +92,10 @@ public class ResizingArrayRandomQueue<Item> implements Iterable<Item> {
         return item;
     }
 
-    // Returns an independent iterator to iterate over the items in this queue in random order.
+    /**
+     * Returns an independent iterator to iterate over the items in this queue in random order.
+     * @return The RandomQueueIterator
+     */
     public Iterator<Item> iterator() {
         return new RandomQueueIterator();
     }
@@ -83,12 +110,20 @@ public class ResizingArrayRandomQueue<Item> implements Iterable<Item> {
         return n > 0 ? "[" + sb.substring(0, sb.length() - 2) + "]" : "[]";
     }
 
-    // An iterator, doesn't implement remove() since it's optional.
+    /**
+     * An iterator, doesn't implement remove() since it's optional.
+     */
     private class RandomQueueIterator implements Iterator<Item> {
         private Item[] items;           // iterator items queue
         private int current;            // current item index
 
-        // Constructs an iterator.
+        /**
+         * Constructs an iterator.
+         * Create items with capacity n.
+         * Copy all items from q to items.
+         * Shuffle items.
+         * Set current to 0.
+         */
         public RandomQueueIterator() {
             this.items = (Item[]) new Object[n];
             for (int i = 0; i < n; i++) {
@@ -98,12 +133,18 @@ public class ResizingArrayRandomQueue<Item> implements Iterable<Item> {
             this.current = 0;
         }
 
-        // Returns true if there are more items to iterate, and false otherwise.
+        /**
+         * Returns true if the iteration has more items, and false otherwise.
+         * @return true if the iteration has more items, and false otherwise
+         */
         public boolean hasNext() {
             return this.current < n;
         }
 
-        // Returns the next item.
+        /**
+         * Returns the next item.
+         * @return the next item
+         */
         public Item next() {
             if (!hasNext()) {
                 throw new NoSuchElementException("Iterator is empty");

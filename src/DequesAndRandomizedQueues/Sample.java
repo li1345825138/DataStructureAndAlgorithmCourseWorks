@@ -2,6 +2,14 @@ package DequesAndRandomizedQueues;
 
 import stdlib.StdOut;
 
+/**
+ *  Implement a program called Sample.java that accepts lo (int), hi (int), k (int), and mode
+ * (String) as command-line arguments, uses a random queue to sample k integers from the
+ * interval [lo, hi], and writes the samples to standard output.
+ *
+ * @author Lengqiang Lin
+ * @date 10/20/2022
+ */
 public class Sample {
     // Entry point.
     public static void main(String[] args) {

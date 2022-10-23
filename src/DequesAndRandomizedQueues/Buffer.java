@@ -3,49 +3,75 @@ package DequesAndRandomizedQueues;
 import dsa.LinkedStack;
 import stdlib.StdOut;
 
-// A data type to represent a text editor buffer.
+/**
+ * Implement a data type called Buffer to represent a buffer in a text editor.
+ *
+ * @author Lengqiang Lin
+ * @date 10/16/2022
+ */
 public class Buffer {
     protected LinkedStack<Character> left;  // chars left of cursor
     protected LinkedStack<Character> right; // chars right of cursor
 
-    // Creates an empty buffer.
+    /**
+     * Creates an empty buffer.
+     * Set up left and right
+     */
     public Buffer() {
         this.left = new LinkedStack<>();
         this.right = new LinkedStack<>();
     }
 
-    // Inserts c at the cursor position.
+    /**
+     * Inserts c at the cursor position.
+     * @param c push current Character into left stack
+     */
     public void insert(char c) {
         this.left.push(c);
     }
 
-    // Deletes and returns the character immediately ahead of the cursor.
+    /**
+     * Deletes and returns the character immediately ahead of the cursor.
+     * @return return current delete element
+     */
     public char delete() {
         return this.right.isEmpty() ? '\0' : this.right.pop();
     }
 
-    // Moves the cursor k positions to the left.
+    /**
+     * Moves the cursor k positions to the left.
+     * @param k move k positions to the left
+     */
     public void left(int k) {
-        for (int i = k; this.left.isEmpty() && i > 0; i--) {
+        for (int i = k; !this.left.isEmpty() && i > 0; i--) {
             this.right.push(this.left.pop());
         }
     }
 
-    // Moves the cursor k positions to the right.
+    /**
+     * Moves the cursor k positions to the right.
+     * @param k move k positions to the right
+     */
     public void right(int k) {
         for (int i = k; !this.right.isEmpty() && i > 0; i--) {
             this.left.push(this.right.pop());
         }
     }
 
-    // Returns the number of characters in this buffer.
+    /**
+     * Returns the number of characters in the buffer.
+     * @return return the number of characters in the buffer
+     */
     public int size() {
         return this.left.size() + this.right.size();
     }
 
-    // Returns a string representation of the buffer with the "|" character (not part of the buffer)
-    // at the cursor position.
-    @Override
+    /**
+     * Returns a string representation of the buffer with a "|" character (not part of the buffer)
+     * at the cursor position.
+     *
+     * @return return a string representation of the buffer
+     */
     public String toString() {
         // A buffer to store the string representation.
         StringBuilder sb = new StringBuilder();
@@ -70,7 +96,7 @@ public class Buffer {
         while (!this.right.isEmpty()) {
             char tmpChar = this.right.pop();
             sb.append(tmpChar);
-            tempStack.push(tmpChar); // store element for push back to right stack
+            tempStack.push(tmpChar);
         }
 
         // restore back to right stack
