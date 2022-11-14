@@ -28,8 +28,7 @@ public class Solver {
         if (board == null) {
             throw new NullPointerException("board is null");
         } else if (!board.isSolvable()) {
-            throw new IllegalArgumentException("board is\n" +
-                    "unsolvable");
+            throw new IllegalArgumentException("board is unsolvable");
         }
         this.moves = 0;
         this.solution = new LinkedStack<>();
