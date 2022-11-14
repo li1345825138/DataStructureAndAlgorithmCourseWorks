@@ -21,6 +21,7 @@ public class Solver {
 
     /**
      * Finds a solution to the initial board using the A* algorithm.
+     *
      * @param board board object
      */
     public Solver(Board board) {
@@ -47,7 +48,7 @@ public class Solver {
             // in the solution and the solution and store the values in the instance variables
             // moves and solution respectively, and break.
             if (node.board.isGoal()) {
-                for (SearchNode x = node; x.previous != null;x = x.previous) {
+                for (SearchNode x = node; x.previous != null; x = x.previous) {
                     this.solution.push(x.board);
                 }
                 break;
@@ -65,6 +66,7 @@ public class Solver {
 
     /**
      * Returns the minimum number of moves needed to solve the initial board.
+     *
      * @return minimum number of moves needed to solve the initial board
      */
     public int moves() {
@@ -73,6 +75,7 @@ public class Solver {
 
     /**
      * Returns a sequence of boards in a shortest solution of the initial board.
+     *
      * @return sequence of boards in a shortest solution of the initial board
      */
     public Iterable<Board> solution() {
@@ -91,8 +94,9 @@ public class Solver {
 
         /**
          * Constructs a new search node.
-         * @param board board object
-         * @param moves moves needed
+         *
+         * @param board    board object
+         * @param moves    moves needed
          * @param previous previouse search
          */
         public SearchNode(Board board, int moves, SearchNode previous) {
@@ -104,6 +108,7 @@ public class Solver {
         /**
          * Returns a comparison of this node and other based on the following sum:
          * Manhattan distance of the board in the node + the # of moves to the node
+         *
          * @param other the object to be compared.
          * @return comparison of this node and other
          */
