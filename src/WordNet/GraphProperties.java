@@ -6,6 +6,8 @@ import dsa.RedBlackBinarySearchTreeST;
 import stdlib.In;
 import stdlib.StdOut;
 
+import java.util.Arrays;
+
 /**
  * Consider an undirected graph G with V vertices and E edges
  *
@@ -24,7 +26,7 @@ public class GraphProperties {
      * @param G graph
      */
     public GraphProperties(Graph G) {
-        st = new RedBlackBinarySearchTreeST<>();
+        this.st = new RedBlackBinarySearchTreeST<>();
         int vertex = G.V();
         int edge = G.E();
         this.avgDegree = 2.0 * edge / vertex;
@@ -38,79 +40,91 @@ public class GraphProperties {
             }
         }
 
-        // find average path length by using findAllPath method
-        int count = 0;
-        double sum = 0;
-        for (int v = 0; v < vertex; v++) {
-            for (int w = v + 1; w < vertex; w++) {
-                count++;
-                sum += findAllPath(G, v, w);
-            }
-        }
-        this.avgPathLength = sum / count;
+        // Calculate avgPathLength
+        this.avgPathLength = findAllPaths(G);
 
-        // calculate clustering coefficient of the graph
-        this.clusteringCoefficient = calculateClusteringCoefficient(G) / vertex;
+        // Calculate clusteringCoefficient
+        this.clusteringCoefficient = calculateClusteringCoefficient(G);
     }
 
     /**
-     * Calculate Clustering Coefficient
+     * Helper method: Calculate out clustering Coefficient
      *
      * @param G graph
-     * @return sum of total Clustering Coefficient
+     * @return clustering Coefficient
      */
     private double calculateClusteringCoefficient(Graph G) {
-        double sumCC = 0;
+        double clusteringCoefficient = 0.0;
         for (int v = 0; v < G.V(); v++) {
-            int degreeV = G.degree(v);
-            if (degreeV < 2) {
-                continue;
-            }
-            int countEdge = 0;
-            for (int w : G.adj(v)) {
-                for (int x : G.adj(v)) {
-                    if (w == x) {
-                        continue;
-                    }
-                    if (hasEdge(G, w, x)) {
-                        countEdge++;
+            Iterable<Integer> neibors = G.adj(v);
+            int numEdges = 0;
+            for (int w : neibors) {
+                for (int k : neibors) {
+                    if (w != k && hasEdge(G, w, k)) {
+                        numEdges++;
                     }
                 }
             }
-            sumCC += (double) countEdge / (degreeV * (degreeV - 1));
+            int possibleEdges = 0;
+            for (int w : neibors) {
+                for (int k : neibors) {
+                    if (w != k) {
+                        possibleEdges++;
+                    }
+                }
+            }
+            if (possibleEdges > 0) {
+                double localCoefficient = (double) numEdges / possibleEdges;
+                clusteringCoefficient += localCoefficient;
+            }
         }
-        return sumCC;
+        return clusteringCoefficient / G.V();
     }
 
     /**
-     * Find all path by use BFS
+     * Helper Method: To find all path and return avgPathLength
      *
      * @param G graph
-     * @param v vertex
-     * @param w current visit
-     * @return total path count
+     * @return Average Path Length
      */
-    private int findAllPath(Graph G, int v, int w) {
-        int[] edgeTo = new int[G.V()];
-        boolean[] marked = new boolean[G.V()];
-        LinkedQueue<Integer> queue = new LinkedQueue<>();
-        queue.enqueue(v);
-        marked[v] = true;
-        while (!queue.isEmpty()) {
-            int x = queue.dequeue();
-            for (int y : G.adj(x)) {
-                if (!marked[y]) {
-                    edgeTo[y] = x;
-                    marked[y] = true;
-                    queue.enqueue(y);
+    private double findAllPaths(Graph G) {
+        double totalPathLength = 0;
+        for (int v = 0; v < G.V(); v++) {
+            for (int w = v + 1; w < G.V(); w++) {
+                int distance = findShortestPath(G, v, w);
+                if (distance != Integer.MAX_VALUE) {
+                    totalPathLength += distance;
                 }
             }
         }
-        int count = 0;
-        for (int x = w; x != v; x = edgeTo[x]) {
-            count++;
+        int numPairs = G.V() * (G.V() - 1) / 2;
+        return totalPathLength / numPairs;
+    }
+
+    /**
+     * Helper method: finds the shortest path from v to w using BreathFirstSearch
+     *
+     * @param G graph
+     * @param v v vertex
+     * @param w target
+     * @return distant to
+     */
+    private int findShortestPath(Graph G, int v, int w) {
+        LinkedQueue<Integer> queue = new LinkedQueue<>();
+        queue.enqueue(v);
+        int[] disTo = new int[G.V()];
+        Arrays.fill(disTo, Integer.MAX_VALUE);
+        disTo[v] = 0;
+        while (!queue.isEmpty()) {
+            int curr = queue.dequeue();
+            for (int neibors : G.adj(curr)) {
+                if (disTo[neibors] == Integer.MAX_VALUE) {
+                    disTo[neibors] = disTo[curr] + 1;
+                    queue.enqueue(neibors);
+                }
+            }
         }
-        return count;
+        return disTo[w];
     }
 
     /**
