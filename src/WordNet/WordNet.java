@@ -11,7 +11,7 @@ import stdlib.StdOut;
  * language that computational linguists and cognitive scientists use extensively. For example,
  * WordNet was a key component in IBM’s Jeopardyplaying Watson computer system.
  *
- * @author Lengqiang Lin
+ * @author Lengqiang Li
  * @date 12/09/2022
  */
 public class WordNet {
