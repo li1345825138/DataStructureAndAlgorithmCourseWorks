@@ -6,6 +6,7 @@ import dsa.RedBlackBinarySearchTreeST;
 import stdlib.In;
 import stdlib.StdOut;
 
+
 import java.util.Arrays;
 
 /**
@@ -44,7 +45,7 @@ public class GraphProperties {
         this.avgPathLength = findAllPaths(G);
 
         // Calculate clusteringCoefficient
-        this.clusteringCoefficient = calculateClusteringCoefficient(G);
+        this.clusteringCoefficient = calculateClusteringCoefficient(G, vertex);
     }
 
     /**
@@ -53,32 +54,26 @@ public class GraphProperties {
      * @param G graph
      * @return clustering Coefficient
      */
-    private double calculateClusteringCoefficient(Graph G) {
-        double clusteringCoefficient = 0.0;
-        for (int v = 0; v < G.V(); v++) {
-            Iterable<Integer> neibors = G.adj(v);
-            int numEdges = 0;
-            for (int w : neibors) {
-                for (int k : neibors) {
-                    if (w != k && hasEdge(G, w, k)) {
-                        numEdges++;
+    private double calculateClusteringCoefficient(Graph G, int n) {
+        double sum = 0;
+        for (int v = 0; v < n; v++) {
+            Iterable<Integer> adj = G.adj(v);
+            int countNeibors = 0;
+            for (int w1 : adj) {
+                for (int w2 : adj) {
+                    if (hasEdge(G, w1, w2)) {
+                        countNeibors++;
                     }
                 }
             }
-            int possibleEdges = 0;
-            for (int w : neibors) {
-                for (int k : neibors) {
-                    if (w != k) {
-                        possibleEdges++;
-                    }
-                }
-            }
-            if (possibleEdges > 0) {
-                double localCoefficient = (double) numEdges / possibleEdges;
-                clusteringCoefficient += localCoefficient;
+            int N = G.degree(v);
+            if (N > 1) {
+                int maxNumEdgesInNeighborhood = N * (N - 1);
+                double localCoefficient = (double) countNeibors / maxNumEdgesInNeighborhood;
+                sum += localCoefficient;
             }
         }
-        return clusteringCoefficient / G.V();
+        return sum / n;
     }
 
     /**

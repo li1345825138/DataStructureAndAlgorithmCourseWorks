@@ -28,7 +28,7 @@ public class Outcast {
      * @return the nouns with the largest distance
      */
     public String outcast(String[] nouns) {
-        String out = "";
+        String out = nouns[0];
         int maxDistance = Integer.MIN_VALUE;
         for (String noun : nouns) {
             int sumDistance = 0;

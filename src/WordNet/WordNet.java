@@ -1,7 +1,7 @@
 package WordNet;
 
 import dsa.DiGraph;
-import dsa.RedBlackBinarySearchTreeST;
+import dsa.SeparateChainingHashST;
 import dsa.Set;
 import stdlib.In;
 import stdlib.StdOut;
@@ -15,8 +15,8 @@ import stdlib.StdOut;
  * @date 12/09/2022
  */
 public class WordNet {
-    private RedBlackBinarySearchTreeST<String, Set<Integer>> st; // set
-    private RedBlackBinarySearchTreeST<Integer, String> rst;    // symbol
+    private SeparateChainingHashST<String, Set<Integer>> st; // set
+    private SeparateChainingHashST<Integer, String> rst;    // symbol
     private ShortestCommonAncestor sca;         // the ancestor for IDs
 
     /**
@@ -32,8 +32,8 @@ public class WordNet {
         if (hypernyms == null) {
             throw new NullPointerException("hypernyms is null");
         }
-        this.st = new RedBlackBinarySearchTreeST<>();
-        this.rst = new RedBlackBinarySearchTreeST<>();
+        this.st = new SeparateChainingHashST<>();
+        this.rst = new SeparateChainingHashST<>();
         In in = new In(synsets);
         int id = 0;
         while (!in.isEmpty()) {
@@ -131,18 +131,22 @@ public class WordNet {
 
     // Unit tests the data type. [DO NOT EDIT]
     public static void main(String[] args) {
-        WordNet wordnet = new WordNet(args[0], args[1]);
-        String word1 = args[2];
-        String word2 = args[3];
-        int nouns = 0;
-        for (String noun : wordnet.nouns()) {
-            nouns++;
+        try {
+            WordNet wordnet = new WordNet(args[0], args[1]);
+            String word1 = args[2];
+            String word2 = args[3];
+            int nouns = 0;
+            for (String noun : wordnet.nouns()) {
+                nouns++;
+            }
+            StdOut.printf("# of nouns = %d\n", nouns);
+            StdOut.printf("isNoun(%s)? %s\n", word1, wordnet.isNoun(word1));
+            StdOut.printf("isNoun(%s)? %s\n", word2, wordnet.isNoun(word2));
+            StdOut.printf("isNoun(%s %s)? %s\n", word1, word2, wordnet.isNoun(word1 + " " + word2));
+            StdOut.printf("sca(%s, %s) = %s\n", word1, word2, wordnet.sca(word1, word2));
+            StdOut.printf("distance(%s, %s) = %s\n", word1, word2, wordnet.distance(word1, word2));
+        } catch (ClassCastException e) {
+            e.printStackTrace();
         }
-        StdOut.printf("# of nouns = %d\n", nouns);
-        StdOut.printf("isNoun(%s)? %s\n", word1, wordnet.isNoun(word1));
-        StdOut.printf("isNoun(%s)? %s\n", word2, wordnet.isNoun(word2));
-        StdOut.printf("isNoun(%s %s)? %s\n", word1, word2, wordnet.isNoun(word1 + " " + word2));
-        StdOut.printf("sca(%s, %s) = %s\n", word1, word2, wordnet.sca(word1, word2));
-        StdOut.printf("distance(%s, %s) = %s\n", word1, word2, wordnet.distance(word1, word2));
     }
 }
